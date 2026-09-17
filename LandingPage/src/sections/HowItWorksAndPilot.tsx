@@ -1,3 +1,4 @@
+import { track } from "@vercel/analytics";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -101,6 +102,12 @@ const handleSubmit = async (e: React.FormEvent) => {
     if (!response.ok) {
       throw new Error("Form submission failed.");
     }
+
+    track("pilot_interest_submitted", {
+      courseCount: courseCount || "not_provided",
+      schoolProvided: school ? "yes" : "no",
+      frustrationProvided: frustration ? "yes" : "no",
+    });
 
     setSubmitted(true);
   } catch (error) {
