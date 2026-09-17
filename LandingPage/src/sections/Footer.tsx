@@ -26,7 +26,7 @@ export default function Footer() {
           {/* Column 1 — Brand & Disclaimer */}
           <div className="flex flex-col gap-4">
             <a
-              href="#top"
+              href="#hero-demo"
               className="font-heading text-xl font-semibold text-foreground tracking-tight hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm w-fit"
             >
               CourseVault
