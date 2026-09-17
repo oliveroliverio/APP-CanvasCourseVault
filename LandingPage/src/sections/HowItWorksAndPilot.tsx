@@ -329,6 +329,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
                 <p className="text-xs text-muted-foreground text-center font-sans">
                   No account creation. No Canvas password required.
+                  We may contact you about the CourseVault pilot.
                 </p>
               </form>
             )}
