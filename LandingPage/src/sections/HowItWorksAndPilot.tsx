@@ -53,8 +53,10 @@ export default function HowItWorksAndPilot() {
   const [courseCount, setCourseCount] = useState("");
   const [selectedUseful, setSelectedUseful] = useState<string[]>([]);
   const [frustration, setFrustration] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<{ email?: string }>({});
+	const [submitted, setSubmitted] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitError, setSubmitError] = useState("");
+	const [errors, setErrors] = useState<{ email?: string }>({});
 
   const toggleUseful = (id: string) => {
     setSelectedUseful((prev) =>
@@ -62,19 +64,54 @@ export default function HowItWorksAndPilot() {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newErrors: { email?: string } = {};
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Please enter a valid email address.";
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const newErrors: { email?: string } = {};
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    newErrors.email = "Please enter a valid email address.";
+  }
+
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
+  }
+
+  setErrors({});
+  setSubmitError("");
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch("https://formspree.io/f/mjykvzed", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        school,
+        courseCount,
+        usefulFor: selectedUseful,
+        frustration,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Form submission failed.");
     }
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-    setErrors({});
+
     setSubmitted(true);
-  };
+  } catch (error) {
+    console.error(error);
+    setSubmitError(
+      "Something went wrong. Please try again or email canvascoursevault@gmail.com.",
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <section
@@ -279,10 +316,16 @@ export default function HowItWorksAndPilot() {
                 {/* Submit */}
                 <Button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full rounded-full bg-primary text-primary-foreground font-heading text-base py-3 transition-all duration-150 hover:opacity-90 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
                 >
-                  I'm Interested
+                  {isSubmitting ? "Submitting..." : "I'm Interested"}
                 </Button>
+                {submitError && (
+                  <p className="text-sm text-center text-red-600">
+                    {submitError}
+                  </p>
+                )}
 
                 <p className="text-xs text-muted-foreground text-center font-sans">
                   No account creation. No Canvas password required.

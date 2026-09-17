@@ -1,4 +1,4 @@
-import { GithubLogo, TwitterLogo, EnvelopeSimple } from "@phosphor-icons/react";
+import { EnvelopeSimple } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
@@ -10,11 +10,9 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { label: "Twitter", href: "#", icon: TwitterLogo },
-  { label: "GitHub", href: "#", icon: GithubLogo },
   {
     label: "Email",
-    href: "mailto:hello@coursevault.app",
+    href: "mailto:canvascoursevault@gmail.com",
     icon: EnvelopeSimple,
   },
 ];
@@ -86,10 +84,10 @@ export default function Footer() {
             <p className="text-xs text-muted-foreground leading-relaxed max-w-xs mt-2">
               Questions or feedback? Reach out at{" "}
               <a
-                href="mailto:hello@coursevault.app"
+                href="mailto:canvascoursevault@gmail.com"
                 className="underline underline-offset-2 hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
               >
-                hello@coursevault.app
+                canvascoursevault@gmail.com
               </a>
             </p>
           </div>
