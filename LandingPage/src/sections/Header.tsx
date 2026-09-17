@@ -22,7 +22,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Wordmark */}
           <a
-            href="#top"
+            href="#hero-demo"
             className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
           >
             <span className="font-heading text-lg md:text-xl font-semibold tracking-tight text-foreground">
